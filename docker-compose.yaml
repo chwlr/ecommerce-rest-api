@@ -1,0 +1,38 @@
+version: '3'
+services:
+  # app:
+  #   container_name: ecommerce-api
+  #   build: .
+  #   ports:
+  #     - 3000:3000
+  #   restart: on-failure
+  #   volumes:
+  #     - api:/usr/src/app/
+  #   depends_on:
+  #     - be-mysql
+  #   networks:
+  #     - backend
+
+  be-mysql:
+    image: mysql:5.7
+    container_name: ecommerce-mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_HOST=127.0.0.1
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=be-ecommerce
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - database_mysql:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  api:
+  database_mysql:
+
+networks:
+  backend:
+    driver: bridge
