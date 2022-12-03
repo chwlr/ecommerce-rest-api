@@ -10,13 +10,7 @@ export class CreateUser implements CreateUserUseCase {
   }
 
   async execute(user: UserRequestModel): Promise<UserResponseModel> {
-    const saltRound = 8
-    const obj = {
-      name : user.name,
-      email : user.email,
-      password : await bcrypt.hash(user.password, saltRound)
-    }
-    const result = await this.userRepository.createUser(obj)
+    const result = await this.userRepository.createUser(user)
     return result 
   }
 }

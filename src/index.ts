@@ -3,6 +3,7 @@ import UserRouter from './presentation/routers/userRouter'
 import { sequelizeConnection } from '../src/config/database'
 import { UserRepositoryImpl } from './domain/repository/user-repository-impl'
 import { CreateUser } from './domain/use-case/create-user-usecase'
+import { LoginUser } from './domain/use-case/login-user-usecase'
 
 (async () => {
   try {
@@ -13,7 +14,8 @@ import { CreateUser } from './domain/use-case/create-user-usecase'
   }
 
   const RouterMiddleware = UserRouter(
-    new CreateUser(new UserRepositoryImpl)
+    new CreateUser(new UserRepositoryImpl),
+    new LoginUser(new UserRepositoryImpl),
   )
 
   server.use('/', RouterMiddleware)
